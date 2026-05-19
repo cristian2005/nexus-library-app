@@ -1,0 +1,24 @@
+{
+  "name": "api-nexus",
+  "version": "1.0.0",
+  "description": "Mock API server para Nexus - Librería Universitaria",
+  "main": "server.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js --port 4000"
+  },
+  "keywords": [
+    "json-server",
+    "mock-api",
+    "nexus"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}

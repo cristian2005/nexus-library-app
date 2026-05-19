@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Nexus",
+    "slug": "nexus-libreria",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1e5aa8"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "net.unir.nexus.libreria"
+    },
+    "android": {
+      "package": "net.unir.nexus.libreria",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1e5aa8"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": []
+  }
+}
