@@ -10,10 +10,9 @@ const Libro = ({ book }) => {
     <article className={`book-card ${darkMode ? 'dark' : ''}`}>
       <div className="book-cover">
         <img
-          src={book.image}
+          src={generateCover(book)}
           alt={`Portada de ${book.title}`}
           loading="lazy"
-          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = generateCover(book); }}
         />
       </div>
 

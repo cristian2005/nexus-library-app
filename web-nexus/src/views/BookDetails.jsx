@@ -75,9 +75,8 @@ const BookDetails = () => {
         <div className="book-detail-grid">
           <div className="book-detail-cover">
             <img
-              src={book.image}
+              src={generateCover(book)}
               alt={`Portada de ${book.title}`}
-              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = generateCover(book); }}
             />
           </div>
 
