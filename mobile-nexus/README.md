@@ -20,7 +20,7 @@ Parte de la Actividad 1 de la asignatura **Aplicaciones Móviles Multiplataforma
 Edita el archivo [`src/config.js`](src/config.js) para apuntar a la URL del proyecto web desplegado:
 
 ```js
-export const NEXUS_WEB_URL = 'https://nexus-libreria-web.vercel.app';
+export const NEXUS_WEB_URL = 'https://nexus-library-app.vercel.app';
 ```
 
 Para desarrollo local con el web en Vite:

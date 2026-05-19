@@ -5,7 +5,7 @@
  * (Vercel, Netlify, etc.). Durante el desarrollo local puedes usar la IP
  * de tu equipo en la red local: p. ej. http://192.168.1.20:5173
  */
-export const NEXUS_WEB_URL = 'https://nexus-libreria-web.vercel.app';
+export const NEXUS_WEB_URL = 'https://nexus-library-app.vercel.app';
 
 export const BRAND = {
   name: 'Nexus',
