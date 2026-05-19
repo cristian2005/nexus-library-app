@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate, useSearchParams } from 'react-router-dom'
 import Spinner from '../components/Spinner';
 import ErrorState from '../components/ErrorState';
 import { useBooks } from '../hooks/useBooks';
+import { generateCover } from '../utils/cover';
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -73,7 +74,11 @@ const BookDetails = () => {
 
         <div className="book-detail-grid">
           <div className="book-detail-cover">
-            <img src={book.image} alt={`Portada de ${book.title}`} />
+            <img
+              src={book.image}
+              alt={`Portada de ${book.title}`}
+              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = generateCover(book); }}
+            />
           </div>
 
           <div className="book-detail-info">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useBooks } from '../hooks/useBooks';
+import { generateCover } from '../utils/cover';
 
 const Libro = ({ book }) => {
   const { darkMode } = useBooks();
@@ -8,7 +9,12 @@ const Libro = ({ book }) => {
   return (
     <article className={`book-card ${darkMode ? 'dark' : ''}`}>
       <div className="book-cover">
-        <img src={book.image} alt={`Portada de ${book.title}`} loading="lazy" />
+        <img
+          src={book.image}
+          alt={`Portada de ${book.title}`}
+          loading="lazy"
+          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = generateCover(book); }}
+        />
       </div>
 
       <div className="book-body">
