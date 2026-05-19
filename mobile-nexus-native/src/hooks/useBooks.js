@@ -1,6 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
 import { API_URL, BRANCHES_FALLBACK } from '../config';
 
+// placehold.co devuelve SVG por defecto, que <Image> de RN no renderiza.
+// Insertamos .png para forzar PNG, que sí carga nativamente en Android/iOS.
+const normalizeImage = (url) => {
+  if (!url || typeof url !== 'string') return url;
+  if (url.includes('placehold.co/') && !/\.(png|jpe?g|webp|gif)(?:\?|$)/i.test(url)) {
+    return url.replace(/(\?|$)/, '.png$1');
+  }
+  return url;
+};
+
+const withNormalizedImage = (book) => (book ? { ...book, image: normalizeImage(book.image) } : book);
+
 /**
  * Hook reutilizable que consume la API de Nexus (json-server en Render).
  *
@@ -27,7 +39,8 @@ export const useBooks = (initialBranch = null) => {
         : `${API_URL}/api/books`;
       const res = await fetch(url);
       if (!res.ok) throw new Error(`Error ${res.status} cargando libros`);
-      const data = await res.json();
+      const raw = await res.json();
+      const data = Array.isArray(raw) ? raw.map(withNormalizedImage) : raw;
       setBooks(data);
       return data;
     } catch (err) {
@@ -58,7 +71,7 @@ export const useBooks = (initialBranch = null) => {
 export const fetchBookById = async (id) => {
   const res = await fetch(`${API_URL}/api/books/${id}`);
   if (!res.ok) throw new Error(`Error ${res.status} cargando el libro ${id}`);
-  return res.json();
+  return withNormalizedImage(await res.json());
 };
 
 /** Petición individual de una sucursal por id. */
