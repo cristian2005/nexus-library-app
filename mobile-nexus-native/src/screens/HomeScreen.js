@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import * as Haptics from 'expo-haptics';
 
 import { useBooks } from '../hooks/useBooks';
 import { fetchBranches } from '../hooks/useBooks';
@@ -111,7 +112,10 @@ export default function HomeScreen() {
               .map(b => (
                 <Pressable
                   key={b.id}
-                  onPress={() => navigation.navigate('SucursalDetail', { branchId: b.id })}
+                  onPress={async () => {
+                    await Haptics.selectionAsync();
+                    navigation.navigate('SucursalDetail', { branchId: b.id });
+                  }}
                   className="bg-primary/10 px-4 py-2 rounded-full active:opacity-70"
                 >
                   <Text style={{ fontFamily: 'Inter_500Medium' }} className="text-primary-dark">
