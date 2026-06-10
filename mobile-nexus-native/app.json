@@ -29,6 +29,18 @@
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "9af35219-582e-4e7b-8b63-59775140d327"
+      }
+    },
+    "owner": "cristian2005",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/9af35219-582e-4e7b-8b63-59775140d327"
+    }
   }
 }
