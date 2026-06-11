@@ -1,8 +1,9 @@
-Autor:
+Autores:
 
+Winston Jiménez Familia
 Cristian Herrera Alcántara
 
-Actividad 1 - Desarrollo de una aplicación móvil WebView
+Actividad 2 - Desarrollo de una aplicación móvil WebView
 Asignatura: Aplicaciones Móviles Multiplataforma
 Máster - UNIR
-Entrega individual
+Entrega Grupal
