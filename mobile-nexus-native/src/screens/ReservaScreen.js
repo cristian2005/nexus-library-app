@@ -12,6 +12,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
 
+import { useAuth } from '../context/AuthContext';
+
 import { fetchBookById } from '../hooks/useBooks';
 import Spinner from '../components/Spinner';
 import ErrorState from '../components/ErrorState';
@@ -23,6 +25,7 @@ const MODES = [
 ];
 
 export default function ReservaScreen() {
+  const { user } = useAuth();
   const navigation = useNavigation();
   const route = useRoute();
   const { bookId, date } = route.params || {};
@@ -34,9 +37,16 @@ export default function ReservaScreen() {
   const [mode, setMode] = useState('alquiler');
   const [quantity, setQuantity] = useState(1);
   const [selectedDate, setSelectedDate] = useState(date || '');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState(user?.displayName || '');
+  const [email, setEmail] = useState(user?.email || '');
   const [confirmed, setConfirmed] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      setName(user.displayName || '');
+      setEmail(user.email || '');
+    }
+  }, [user]);
 
   useEffect(() => {
     if (!bookId) return;
@@ -68,9 +78,20 @@ export default function ReservaScreen() {
       return;
     }
 
+    const reserva = {
+      bookId: book.id,
+      userId: user?.uid,
+      userEmail: user?.email,
+      userName: name.trim(),
+      mode,
+      quantity,
+      selectedDate,
+      subtotal: subtotal.toFixed(2),
+    };
+
     await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     const code = `NEXUS-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
-    setConfirmed({ code, amount: subtotal.toFixed(2), bookTitle: book.title });
+    setConfirmed({ code, amount: subtotal.toFixed(2), bookTitle: book.title, userEmail: reserva.userEmail });
     Keyboard.dismiss();
   };
 

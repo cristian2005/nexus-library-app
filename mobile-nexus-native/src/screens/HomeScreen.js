@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
 
+import { useAuth } from '../context/AuthContext';
 import { useBooks } from '../hooks/useBooks';
 import { fetchBranches } from '../hooks/useBooks';
 import { BRAND, BRANCHES_FALLBACK } from '../config';
@@ -29,8 +30,10 @@ import { colors } from '../theme/colors';
  */
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const { user, signOut } = useAuth();
   const { books, loading, error, refetch } = useBooks(null); // null = todos los libros
   const [branches, setBranches] = useState([]);
+  const username = user?.displayName || user?.email || 'usuario';
 
   useEffect(() => {
     fetchBranches().then(setBranches).catch(() => setBranches([]));
@@ -48,15 +51,32 @@ export default function HomeScreen() {
       >
         {/* === Hero === */}
         <View className="bg-primary px-5 pt-8 pb-10 rounded-b-3xl">
-          <Text style={{ fontFamily: 'Lora_700Bold' }} className="text-4xl text-white">
-            📚 {BRAND.name}
-          </Text>
-          <Text style={{ fontFamily: 'Inter_500Medium' }} className="text-base text-white/85 mt-1">
-            {BRAND.tagline}
-          </Text>
-          <Text style={{ fontFamily: 'Inter_400Regular' }} className="text-sm text-white/75 mt-4 leading-5">
-            {BRAND.description}
-          </Text>
+            <View className="flex-row justify-between items-start">
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontFamily: 'Lora_700Bold' }} className="text-4xl text-white">
+                  📚 {BRAND.name}
+                </Text>
+                <Text style={{ fontFamily: 'Inter_500Medium' }} className="text-base text-white/85 mt-1">
+                  {BRAND.tagline}
+                </Text>
+                <Text style={{ fontFamily: 'Inter_400Regular' }} className="text-sm text-white/75 mt-4 leading-5">
+                  {BRAND.description}
+                </Text>
+              </View>
+              <Pressable
+                onPress={() => signOut()}
+                className="bg-white/15 px-3 py-2 rounded-2xl"
+              >
+                <Text style={{ fontFamily: 'Inter_700Bold' }} className="text-white text-sm">
+                  Cerrar sesión
+                </Text>
+              </Pressable>
+            </View>
+
+            <Text style={{ fontFamily: 'Inter_500Medium' }} className="text-white text-base mt-5">
+              Hola, {username}
+
+              </Text>
 
           <Pressable
             onPress={() => navigation.navigate('Catálogo')}
