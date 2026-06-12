@@ -1,3 +1,7 @@
+/**
+ * RegisterScreen — Winston.
+ */
+
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
